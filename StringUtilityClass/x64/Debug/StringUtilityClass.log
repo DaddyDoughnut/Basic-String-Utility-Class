@@ -1,0 +1,3 @@
+﻿  main.cpp
+C:\Users\s233179\Desktop\git\Basic-String-Utility-Class\StringUtilityClass\main.cpp(7,29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  StringUtilityClass.vcxproj -> C:\Users\s233179\Desktop\git\Basic-String-Utility-Class\StringUtilityClass\x64\Debug\StringUtilityClass.exe

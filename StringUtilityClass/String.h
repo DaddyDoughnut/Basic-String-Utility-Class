@@ -39,7 +39,7 @@ public:
 	const char& operator[](size_t _index) const;
 
 private:
-	
+
 	char* m_data;
 	size_t m_length;
 
