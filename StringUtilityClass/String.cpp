@@ -178,11 +178,12 @@ String& String::Replace(const String& _find, const String& _replace) {
 	return *this;
 
 }
-/*
+
 String& String::ReadFromConsole() {
-	// TODO: insert return statement here
+	
+	return *this;
 }
-*/
+
 String& String::WriteToConsole() {
 
 	std::cout << m_data;
@@ -196,21 +197,35 @@ bool String::operator==(const String& _other) {
 }
 
 bool String::operator!=(const String& _other) {
+
 	return strcmp(m_data, _other.m_data) != 0;
 }
 
 String& String::operator=(const String& _str) {
+
 	delete[] m_data;
 	CopyString(_str.m_data);
 	return *this;
 }
 
 char& String::operator[](size_t _index) {
+
 	return m_data[_index];
 }
 
 const char& String::operator[](size_t _index) const {
+
 	return m_data[_index];
+}
+
+bool String::operator<(const String& _other) {
+	 
+	if (strcmp(m_data, _other.m_data) == 1) {
+
+		return true;
+	}
+
+	return false;
 }
 
 void String::CopyString(const char* _str) {
