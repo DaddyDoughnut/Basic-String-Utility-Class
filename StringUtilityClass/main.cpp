@@ -2,17 +2,15 @@
 #include <iostream>
 int main() {
 
-	String myString("HOTdog");
-	String other("hotdo");
-	int len = myString.Length();
-	char d = myString.CharacterAt(4);
+	String myString("DOG_DOG_CAT_DOG_CAT");
+	String other("meatball");
+	
+	
+	
 	
 	
 
 	
 
-	myString.Find("H");
-
-	//std::cout << myString.CStr() << std::endl;
 	return 0;
 }

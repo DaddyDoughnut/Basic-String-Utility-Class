@@ -12,7 +12,6 @@ String::String(const char* _str)
 	: m_data{ nullptr }, m_length{ 0 }
 {
 	CopyString(_str);
-
 }
 
 String::String(const String& _other)
@@ -23,7 +22,7 @@ String::String(const String& _other)
 
 String::~String() 
 {
-	delete m_data;
+	delete[] m_data;
 }
 
 
@@ -38,9 +37,11 @@ size_t String::Length() const {
 char& String::CharacterAt(size_t _index) {
 
 	if (_index >= 0 && _index < m_length) {
+
 		return m_data[_index];
 	}
 	else {
+
 		return m_data[m_length];
 	}
 }
@@ -48,9 +49,11 @@ char& String::CharacterAt(size_t _index) {
 const char& String::CharacterAt(size_t _index) const {
 
 	if (_index >= 0 && _index < m_length) {
+
 		return m_data[_index];
 	}
 	else {
+
 		return m_data[m_length];
 	}
 }
@@ -68,9 +71,9 @@ String& String::Append(const String& _str) {
 	strcpy_s(combindString, combindLength, m_data);
 	strcat_s(combindString, combindLength, _str.m_data);
 	
-	delete m_data;
-	
+	delete[] m_data;
 	m_data = combindString;
+
 	m_length += _str.m_length;
 
 	return *this;
@@ -86,12 +89,12 @@ String& String::Prepend(const String& _str) {
 	strcat_s(combindString, combindLength, m_data);
 
 	delete m_data;
-
 	m_data = combindString;
+
 	m_length += _str.m_length;
 
 	return *this;
-
+	
 }
 
 const char* String::CStr() const {
@@ -99,7 +102,9 @@ const char* String::CStr() const {
 }
 
 String& String::ToLower() {
+
 	for (int i = 0; i < m_length; ++i) {
+
 		m_data[i] = std::tolower(m_data[i]);
 	}
 		
@@ -107,7 +112,9 @@ String& String::ToLower() {
 }
 
 String& String::ToUpper() {
+
 	for (int i = 0; i < m_length; ++i) {
+
 		m_data[i] = std::toupper(m_data[i]);
 	}
 
@@ -115,62 +122,98 @@ String& String::ToUpper() {
 }
 
 size_t String::Find(const String& _str) {
-	
-	if (strstr(m_data, _str.m_data)) {
-		std::cout << "found" << std::endl;
+
+	char* position = strstr(m_data, _str.m_data);
+	if (position == nullptr) {
+
+		return -1;
 	}
-	else {
-		std::cout << "not found" << std::endl;
-	}
 	
-	return size_t();
+	return position - m_data;
+	
+
+	
+
 }
 
 size_t String::Find(size_t _startIndex, const String& _str) {
+	
+	
 
+	char* position = strstr(m_data + _startIndex, _str.m_data);
+	if (position == nullptr) {
 
+		return -1;
+	}
 
-	return size_t();
+	return position - m_data;
+}
+
+String& String::Replace(const String& _find, const String& _replace) {
+
+	size_t position = Find(_find);
+
+	while (position != -1) {
+
+		size_t replaceLength = m_length + _replace.m_length - _find.m_length;
+
+		char* replaceString = new char[replaceLength + 1];
+
+		strncpy_s(replaceString, replaceLength + 1, m_data, position);
+		replaceString[position] = '\0';
+
+		strcat_s(replaceString, replaceLength + 1, _replace.m_data);
+
+		strcat_s(replaceString, replaceLength + 1, m_data + position + _find.m_length);
+
+		delete[] m_data;
+
+		m_data = replaceString;
+		m_length = replaceLength;
+
+		position = Find(position + _replace.m_length, _find);
+
+	}
+
+	return *this;
+
 }
 /*
-String& String::Replace(const String& _find, const String& _replace) {
-	// TODO: insert return statement here
-}
-
 String& String::ReadFromConsole() {
 	// TODO: insert return statement here
 }
 */
-void String::WriteToConsole() const {
+String& String::WriteToConsole() {
+
 	std::cout << m_data;
+
+	return *this;
 }
-/*
+
 bool String::operator==(const String& _other) {
-	return false;
+
+	return strcmp(m_data, _other.m_data) == 0;
 }
 
-bool String::operator!=(const String& _other)
-{
-	return false;
+bool String::operator!=(const String& _other) {
+	return strcmp(m_data, _other.m_data) != 0;
 }
 
-String& String::operator=(const String& _str)
-{
-	// TODO: insert return statement here
+String& String::operator=(const String& _str) {
+	delete[] m_data;
+	CopyString(_str.m_data);
+	return *this;
 }
 
-char& String::operator[](size_t _index)
-{
-	// TODO: insert return statement here
+char& String::operator[](size_t _index) {
+	return m_data[_index];
 }
 
-const char& String::operator[](size_t _index) const
-{
-	// TODO: insert return statement here
+const char& String::operator[](size_t _index) const {
+	return m_data[_index];
 }
-*/
-void String::CopyString(const char* _str)
-{
+
+void String::CopyString(const char* _str) {
 
 	m_length = strlen(_str);
 	m_data = new char[m_length + 1];

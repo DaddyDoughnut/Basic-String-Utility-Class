@@ -28,7 +28,7 @@ public:
 	size_t Find(size_t _startIndex, const String& _str);
 	String& Replace(const String& _find, const String& _replace);
 	String& ReadFromConsole();
-	void WriteToConsole() const;
+	String& WriteToConsole();
 
 public:
 
