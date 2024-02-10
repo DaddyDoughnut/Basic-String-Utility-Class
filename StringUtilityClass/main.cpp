@@ -5,9 +5,9 @@ int main() {
 	String myString("B");
 	String other("A");
 	
-	std::cout << myString.CharacterAt(200);
+	myString += myString;
 
-	
+	myString.WriteToConsole();
 
 	return 0;
 }

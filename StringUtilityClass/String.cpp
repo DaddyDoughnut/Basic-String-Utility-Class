@@ -227,6 +227,32 @@ bool String::operator<(const String& _other) {// Checks if current string is les
 	return false;
 }
 
+char* String::operator+(const String& _other) {// Returns a string(_str) to the end of the current string
+
+	size_t combindLength = m_length + _other.m_length + 1;
+	char* combindString = new char[combindLength];
+
+	strcpy_s(combindString, combindLength, m_data);
+	strcat_s(combindString, combindLength, _other.m_data);
+
+	return combindString;
+}
+
+String& String::operator+=(const String& _other) {// Joins a string(_other) to the end of the current string
+
+	size_t combindLength = m_length + _other.m_length + 1;
+	char* combindString = new char[combindLength];
+
+	strcpy_s(combindString, combindLength, m_data);
+	strcat_s(combindString, combindLength, _other.m_data);
+
+	delete[] m_data;
+	m_data = combindString;
+	m_length += _other.m_length;
+
+	return *this;
+}
+
 void String::CopyString(const char* _str) {// Copies a string into the object
 
 	m_length = strlen(_str);

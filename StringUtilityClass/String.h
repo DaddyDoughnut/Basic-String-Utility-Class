@@ -38,6 +38,8 @@ public:
 	char& operator[](size_t _index);
 	const char& operator[](size_t _index) const;
 	bool operator<(const String& _other);
+	char* operator+(const String& _other);
+	String& operator+=(const String& _other);
 
 private:
 
