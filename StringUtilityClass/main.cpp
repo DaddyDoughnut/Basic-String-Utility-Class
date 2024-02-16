@@ -2,10 +2,10 @@
 #include <iostream>
 int main() {
 
-	String myString("B");
-	String other("A");
+	String myString("Hello ");
+	String other("World!");
 	
-	myString += myString;
+	myString += other;
 
 	myString.WriteToConsole();
 
